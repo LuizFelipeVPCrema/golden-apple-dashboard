@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS servers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    port INT NOT NULL,
+    status VARCHAR(20) DEFAULT 'stopped',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

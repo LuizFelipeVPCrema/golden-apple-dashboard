@@ -1,0 +1,133 @@
+# ======================
+# 🔧 Geral / Editor
+# ======================
+node_modules/
+dist/
+.DS_Store
+*.log
+*.env
+.env.local
+.env.*.local
+*.bak
+*.swp
+*.tmp
+.idea/
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tgz
+
+# ======================
+# 🐳 Docker
+# ======================
+**/.docker
+**/.dockerignore
+docker-compose.override.yml
+*.pid
+
+# ======================
+# ⚙️ Golang
+# ======================
+/backend/bin/
+/backend/pkg/
+/backend/.idea/
+/backend/coverage.out
+/backend/main
+/backend/main.exe
+/backend/main.test
+/backend/*.test
+/backend/*.exe
+/backend/*.out
+
+# Go cache and binaries
+/go.sum
+/go.mod
+/go.work
+/go.work.sum
+
+# Golang build cache
+**/vendor/
+**/bin/
+**/tmp/
+**/.cache/
+**/coverage/
+
+# ======================
+# 🧩 Angular
+# ======================
+/frontend/minecraft-dashboard/node_modules/
+/frontend/minecraft-dashboard/dist/
+/frontend/minecraft-dashboard/.angular/
+/frontend/minecraft-dashboard/.output/
+/frontend/minecraft-dashboard/.turbo/
+/frontend/minecraft-dashboard/.vite/
+**/angular.json.backup*
+
+# ======================
+# 🐘 PostgreSQL
+# ======================
+/data/
+/db/*.sql.backup
+/db/dumps/
+/db/.psql_history
+
+# ======================
+# 🚀 Build Artifacts
+# ======================
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# ======================
+# 🔍 Test e Coverage
+# ======================
+coverage/
+coverage.out
+lcov.info
+test-results/
+
+# ======================
+# 📦 Deploy / CI
+# ======================
+/dist/
+/build/
+/out/
+/nginx/logs/
+
+# ======================
+# ✅ Certificados e Segurança
+# ======================
+*.key
+*.crt
+*.pem
+
+# ======================
+# 📄 Logs
+# ======================
+*.log
+logs/
+log/
+
+# ======================
+# 🛠 Config e Cache
+# ======================
+*.sqlite3
+*.sqlite
+*.swo
+*.swp
+*.pid
+*.seed
+*.lock
+
+# ======================
+# 🧪 Testes temporários
+# ======================
+testdata/
+tmp/
+.temp/
+*.spec.ts
+*.spec.js

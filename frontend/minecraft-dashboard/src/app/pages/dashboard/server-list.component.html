@@ -1,0 +1,15 @@
+<div class="server-list">
+    <h2>Servidores Minecraft</h2>
+  
+    <div *ngIf="loading">Carregando...</div>
+  
+    <div class="card-grid">
+      <app-server-card
+        *ngFor="let server of servers"
+        [server]="server"
+        (delete)="deleteServer($event)"
+        (start)="startServer($event)"
+        (stop)="stopServer($event)"
+      ></app-server-card>
+    </div>
+  </div>

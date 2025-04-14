@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend_net
+  
+  backend:
+    build: ./backend
+    container_name: mc-backend
+    restart: always
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - postgres
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./minecraft-data:/minecraft-data
+    networks:
+      - backend_net
+      - minecraft_net
+    
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        ENV: development # "production" para alterar para modo produção
+    container_name: mc-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"
+    networks:
+      - frontend_net
+      - minecraft_net
+  
+  proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - frontend_net
+      - backend_net
+      - minecraft_net
+  minecraft-server:
+    image: itzg/minecraft-server
+    container_name: minecraft-server
+    restart: always
+    environment:
+      - EULA=TRUE
+      - VERSION=1.19
+      - MEMORY=2G
+    ports:
+      - "25565:25565"  # Porta do servidor Minecraft
+    networks:
+      - minecraft_net
+
+
+networks:
+  frontend_net:
+    name: frontend_net
+  backend_net:
+    name: backend_net
+  minecraft_net:
+    name: minecraft_net
+

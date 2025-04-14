@@ -1,0 +1,9 @@
+<div class="server-card">
+    <h3>{{ server.name }}</h3>
+    <p>Porta: {{ server.port }}</p>
+    <p>Status: <span [ngClass]="server.status">{{ server.status }}</span></p>
+  
+    <button (click)="start.emit(server.name)" [disabled]="server.status === 'running'">Start</button>
+    <button (click)="stop.emit(server.name)" [disabled]="server.status === 'stopped'">Stop</button>
+    <button (click)="delete.emit(server.name)">Deletar</button>
+  </div>
