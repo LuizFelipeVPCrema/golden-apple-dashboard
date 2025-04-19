@@ -1,0 +1,18 @@
+<header class="app-header">
+    <div class="container">
+      <div class="logo">
+        <a routerLink="/">GoldenApple</a>
+      </div>
+      <nav class="nav-links">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/servers" routerLinkActive="active">Servidores</a>
+        <a routerLink="/settings" routerLinkActive="active">Configurações</a>
+      </nav>
+      <div class="theme-toggle">
+        <button (click)="toggleTheme()">
+          {{ isDarkMode ? '🌙' : '☀️' }}
+        </button>
+      </div>
+    </div>
+  </header>
+  

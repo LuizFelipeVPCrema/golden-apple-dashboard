@@ -39,6 +39,8 @@ services:
       args:
         ENV: development # "production" para alterar para modo produção
     container_name: mc-frontend
+    volumes:  
+      - ./frontend/minecraft-dashboard:/app
     restart: always
     depends_on:
       - backend
@@ -69,12 +71,33 @@ services:
     environment:
       - EULA=TRUE
       - VERSION=1.19
-      - MEMORY=2G
+      - ONLINE_MODE=FALSE
     ports:
-      - "25565:25565"  # Porta do servidor Minecraft
+      - "25566:25566"
+
+    networks:
+      - minecraft_net
+  velocity:
+    image: itzg/mc-proxy
+    environment:
+      TYPE: VELOCITY
+      VELOCITY_VERSION: ${VELOCITY_VERSION}
+      SERVER_PORT: ${SERVER_PORT}
+      REPLACE_ENV_VARIABLES: "TRUE"
+      CFG_SERVERS_SURVIVAL_ADDRESS: ${CFG_SERVERS_SURVIVAL_ADDRESS}
+    ports:
+      - "25565:25577"
+    volumes:
+      - ./proxy/config:/config
+      - proxy-data:/server
+    depends_on:
+      - minecraft-server
     networks:
       - minecraft_net
 
+volumes:
+  mc-data:
+  proxy-data:
 
 networks:
   frontend_net:

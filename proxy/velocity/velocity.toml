@@ -1,0 +1,10 @@
+[servers]
+  [servers.survival]
+    address = "${CFG_SERVERS_SURVIVAL_ADDRESS}"
+    restricted = false
+
+[forced-hosts]
+  "mc.localhost" = "survival"
+
+[bind]
+  port = ${SERVER_PORT}

@@ -1,0 +1,58 @@
+.server-list {
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+  }
+  
+  .server-list h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+  
+  .loading {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Card de criação */
+  .create-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed var(--create-border);
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .create-card:hover {
+    border-color: var(--accent);
+    background-color: var(--hover-bg);
+  }
+  
+  .create-card .plus-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  
+  .create-card p {
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  

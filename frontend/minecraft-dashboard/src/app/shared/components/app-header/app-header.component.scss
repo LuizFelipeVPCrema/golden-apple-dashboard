@@ -1,0 +1,47 @@
+.app-header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .logo a {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+  
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+  
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s ease;
+        cursor: pointer;
+      }
+  
+      a.active {
+        border-bottom: 2px solid currentColor;
+      }
+    }
+  
+    .theme-toggle button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+  

@@ -13,6 +13,9 @@ func RegisterRouter(router *gin.Engine) {
 			servers.POST("/", controllers.CreateServer)
 			servers.GET("/", controllers.ListServers)
 			servers.DELETE("/:name", controllers.DeleteServer)
+
+			servers.PUT("/:name/start", controllers.StartServer)
+			servers.PUT("/:name/stop", controllers.StopServer)
 		}
 	}
 }

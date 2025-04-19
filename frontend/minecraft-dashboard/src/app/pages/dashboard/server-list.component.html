@@ -1,7 +1,7 @@
 <div class="server-list">
     <h2>Servidores Minecraft</h2>
   
-    <div *ngIf="loading">Carregando...</div>
+    <div *ngIf="loading" class="loading">Carregando...</div>
   
     <div class="card-grid">
       <app-server-card
@@ -11,5 +11,10 @@
         (start)="startServer($event)"
         (stop)="stopServer($event)"
       ></app-server-card>
+    </div>
+
+    <div class="create-card" (click)="goToCreateServer()">
+      <div class="plus-icon">+</div>
+      <p>Criar novo servidor</p>
     </div>
   </div>

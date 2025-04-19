@@ -1,0 +1,6 @@
+<div class="server-details-container" *ngIf="!loading">
+    <app-server-info [server]="serverInfo"></app-server-info>
+    <app-server-config [server]="serverInfo"></app-server-config>
+    <app-file-manager [serverId]="serverId"></app-file-manager>
+    <app-console [serverId]="serverId"></app-console>
+  </div>

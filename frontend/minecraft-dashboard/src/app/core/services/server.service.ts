@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 
 
 export interface ServerInfo {
@@ -24,10 +24,28 @@ export class ServerService {
     }
 
     start(name: string): Observable<any> {
-        return this.http.post(`${this.API}/${name}/start`, {});
+        return this.http.put(`${this.API}/${name}/start`, {});
     }
 
     stop(name: string): Observable<any> {
-        return this.http.post(`${this.API}/${name}/stop`, {});
+        return this.http.put(`${this.API}/${name}/stop`, {});
     }
+
+    /**
+   * Busca os detalhes de um servidor específico pelo ID
+   * @param id ID do servidor
+   * @returns Promise com os dados do servidor
+   */
+  async getServerById(id: string): Promise<any> {
+    return await firstValueFrom(this.http.get<any>(`${this.API}/${id}`));
+  }
+
+  /**
+   * Lista os arquivos de um servidor pelo ID
+   * @param id ID do servidor
+   * @returns Promise com uma lista de arquivos
+   */
+  async getServerFiles(id: string): Promise<string[]> {
+    return await firstValueFrom(this.http.get<string[]>(`${this.API}/${id}/files`));
+  }
 }

@@ -1,0 +1,11 @@
+<div class="console">
+    <h3>Console do Servidor</h3>
+    <div class="console-output">
+      <pre *ngFor="let log of logs ?? []">{{ log }}</pre>
+    </div>
+    <input
+        type="text"
+        (keydown.enter)="onEnter($any($event))"
+        placeholder="Digite um comando..." />
+  </div>
+  

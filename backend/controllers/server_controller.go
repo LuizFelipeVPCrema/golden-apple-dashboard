@@ -61,3 +61,22 @@ func DeleteServer(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Servidor deletado com sucesso!"})
 
 }
+
+func StartServer(c *gin.Context) {
+	name := c.Param("name")
+	if err := services.StartServer(name); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao iniciar servidor", "debug": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Servidor iniciando com sucesso"})
+}
+
+func StopServer(c *gin.Context) {
+	name := c.Param("name")
+	if err := services.StopServer(name); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao fechar servidor", "debug": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Servidor parado com sucesso"})
+}

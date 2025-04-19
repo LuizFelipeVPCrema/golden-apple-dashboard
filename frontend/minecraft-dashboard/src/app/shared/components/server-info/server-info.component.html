@@ -1,0 +1,7 @@
+<div class="info-card">
+    <h2>{{ server.name }}</h2>
+    <p><strong>ID:</strong> {{ server.id }}</p>
+    <p><strong>Status:</strong> <span [ngClass]="server.status">{{ server.status }}</span></p>
+    <p><strong>Porta:</strong> {{ server.port || 'Não iniciada' }}</p>
+  </div>
+  

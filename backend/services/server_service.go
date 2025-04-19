@@ -10,10 +10,10 @@ import (
 )
 
 func CreateServer(req models.ServerRequest) error {
-	containerName := "mc_" + req.Name
+	containerName := req.Name
 	port := req.Port
 
-	return utils.RunMinecraftContainer(containerName, port, req.Project)
+	return utils.RunMinecraftContainer(containerName, port, req.Project, req)
 }
 
 func ListServersWithFilters(statusFilter, projectFilter string) ([]models.ServerInfo, error) {
@@ -61,7 +61,15 @@ func ListServersWithFilters(statusFilter, projectFilter string) ([]models.Server
 }
 
 func DeleteServer(name string) error {
-	containerName := "mc_" + name
+	containerName := name
 
 	return utils.StopAndRemoveContainer(containerName)
+}
+
+func StartServer(containerName string) error {
+	return utils.StartContainer(containerName)
+}
+
+func StopServer(containerName string) error {
+	return utils.StopContainer(containerName)
 }

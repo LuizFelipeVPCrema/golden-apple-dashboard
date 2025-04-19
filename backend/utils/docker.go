@@ -4,14 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"strings"
 
+	"github.com/LuizFelipeVPCrema/minecraft-dashboard-go/models"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
 )
 
-func RunMinecraftContainer(containerName, port, project string) error {
+func RunMinecraftContainer(containerName, port, project string, req models.ServerRequest) error {
 	ctx := context.Background()
 
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -23,7 +26,13 @@ func RunMinecraftContainer(containerName, port, project string) error {
 
 	containerConfig := &container.Config{
 		Image: "itzg/minecraft-server",
-		Env:   []string{"EULA=TRUE", "VERSION=1.19"},
+		Env: []string{
+			"EULA=TRUE",
+			"VERSION=1.19",
+			fmt.Sprintf("MODE=%s", strings.ToUpper(req.GameMode)),
+			fmt.Sprintf("LEVEL_TYPE=%s", strings.ToUpper(req.LevelType)),
+			"ONLINE_MODE=FALSE",
+		},
 		ExposedPorts: nat.PortSet{
 			mcPort: struct{}{},
 		},
@@ -55,6 +64,7 @@ func RunMinecraftContainer(containerName, port, project string) error {
 	log.Printf("Contêiner %s iniciado com sucesso na porta %s", containerName, port)
 	return nil
 }
+
 func ListMinecraftContainers() ([]types.Container, error) {
 	ctx := context.Background()
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
@@ -112,4 +122,37 @@ func StopAndRemoveContainer(containerName string) error {
 
 	log.Printf("Contêiner %s removido com sucesso", containerName)
 	return nil
+}
+
+func UpdateVelocityConfig(servers []models.ServerInfo) error {
+	var config strings.Builder
+	config.WriteString("[servers]\n")
+	for _, server := range servers {
+		config.WriteString(fmt.Sprintf("  [servers.%s]\n", server.Name))
+		config.WriteString(fmt.Sprintf("  address = \"%s:25565\"\n", server.Name))
+		config.WriteString("  retricted = false \n\n")
+	}
+
+	return os.WriteFile("../../velocity/velocity.toml", []byte(config.String()), 0644)
+}
+
+func StartContainer(name string) error {
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return err
+	}
+
+	return cli.ContainerStart(ctx, name, types.ContainerStartOptions{})
+}
+
+func StopContainer(name string) error {
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return err
+	}
+
+	timeout := 10
+	return cli.ContainerStop(ctx, name, container.StopOptions{Timeout: &timeout})
 }

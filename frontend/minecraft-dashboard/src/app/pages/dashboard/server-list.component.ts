@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ServerInfo, ServerService } from "../../core/services/server.service";
 import { ServerCardComponent } from "../../shared/components/server-card/server-card.component";
 import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
+
 
 @Component({
     selector: 'app-server-list',
@@ -13,7 +15,7 @@ export class ServerListComponent implements OnInit {
     servers: ServerInfo[] = [];
     loading = false;
 
-    constructor(private serverService: ServerService) {}
+    constructor(private serverService: ServerService, private router: Router) {}
 
     ngOnInit(): void {
         this.fetchServers();
@@ -37,5 +39,9 @@ export class ServerListComponent implements OnInit {
 
     stopServer(name: string): void {
         this.serverService.stop(name).subscribe(() => this.fetchServers());
+    }
+
+    goToCreateServer() {
+        this.router.navigate(['/create-server']);
     }
 }

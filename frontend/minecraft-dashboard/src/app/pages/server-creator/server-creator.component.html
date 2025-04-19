@@ -1,0 +1,49 @@
+<div class="server-creator-container">
+    <h2>Criar Novo Servidor</h2>
+  
+    <form class="server-form"  #serverForm="ngForm">
+      <div class="form-section">
+        <h3>Informações Básicas</h3>
+        <div class="form-group">
+          <label for="name">Nome do Servidor</label>
+          <input id="name" name="name" type="text" [(ngModel)]="server.name" required />
+        </div>
+        <div class="form-group">
+          <label for="project">Projeto</label>
+          <input id="project" name="project" type="text" [(ngModel)]="server.project" required />
+        </div>
+      </div>
+  
+      <div class="form-section">
+        <h3>Configurações do Servidor</h3>
+        <div class="form-group">
+          <label for="port">Porta</label>
+          <input id="port" name="port" type="number" [(ngModel)]="server.port" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="gameMode">Modo de Jogo</label>
+          <select id="gameMode" name="gameMode" [(ngModel)]="server.gameMode">
+            <option value="survival">Survival</option>
+            <option value="creative">Creative</option>
+            <option value="adventure">Adventure</option>
+            <option value="spectator">Spectator</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="levelType">Tipo de Mundo</label>
+          <select id="levelType" name="levelType" [(ngModel)]="server.levelType">
+            <option value="default">Default</option>
+            <option value="flat">Flat</option>
+            <option value="amplified">Amplified</option>
+            <option value="largeBiomes">Large Biomes</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" [disabled]="!serverForm.form.valid">Criar Servidor</button>
+      </div>
+    </form>
+  </div>

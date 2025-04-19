@@ -1,9 +1,19 @@
-<div class="server-card">
+<div class="server-card" [ngClass]="server.status">
+  <div class="header">
     <h3>{{ server.name }}</h3>
-    <p>Porta: {{ server.port }}</p>
-    <p>Status: <span [ngClass]="server.status">{{ server.status }}</span></p>
-  
-    <button (click)="start.emit(server.name)" [disabled]="server.status === 'running'">Start</button>
-    <button (click)="stop.emit(server.name)" [disabled]="server.status === 'stopped'">Stop</button>
-    <button (click)="delete.emit(server.name)">Deletar</button>
+    <span class="status-badge" [ngClass]="server.status">
+      {{ server.status === 'running' ? '🟢 Online' : '🔴 Offline' }}
+    </span>
   </div>
+
+  <div class="info">
+    <p *ngIf="server.port">🌐 Porta: <strong>{{ server.port }}</strong></p>
+    <p *ngIf="!server.port">⚠️ Porta indisponível</p>
+  </div>
+
+  <div class="actions">
+    <button (click)="start.emit(server.name)" [disabled]="server.status === 'running'">Iniciar</button>
+    <button (click)="stop.emit(server.name)" [disabled]="server.status === 'stopped'">Parar</button>
+    <button class="danger" (click)="delete.emit(server.name)">Deletar</button>
+  </div>
+</div>
