@@ -1,5 +1,7 @@
 # Minecraft Dashboard - Gerenciador de Servidores Dockerizados
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3998ed3d-75de-47a2-ace9-5386cdb8b5e4" alt="GoldenApple Logo Banner" width="100%">
+</p>
 ## 🧩 Sobre o Projeto
 Este projeto é uma plataforma de gerenciamento de servidores Minecraft utilizando containers Docker. A aplicação foi construída com:
 
