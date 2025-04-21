@@ -1,16 +1,12 @@
 <div class="server-creator-container">
     <h2>Criar Novo Servidor</h2>
   
-    <form class="server-form"  #serverForm="ngForm">
+    <form class="server-form"  #serverForm="ngForm" (ngSubmit)="submitServer()">
       <div class="form-section">
         <h3>Informações Básicas</h3>
         <div class="form-group">
           <label for="name">Nome do Servidor</label>
           <input id="name" name="name" type="text" [(ngModel)]="server.name" required />
-        </div>
-        <div class="form-group">
-          <label for="project">Projeto</label>
-          <input id="project" name="project" type="text" [(ngModel)]="server.project" required />
         </div>
       </div>
   
@@ -34,10 +30,9 @@
         <div class="form-group">
           <label for="levelType">Tipo de Mundo</label>
           <select id="levelType" name="levelType" [(ngModel)]="server.levelType">
-            <option value="default">Default</option>
-            <option value="flat">Flat</option>
-            <option value="amplified">Amplified</option>
-            <option value="largeBiomes">Large Biomes</option>
+            <option value="easy">Fácil</option>
+            <option value="medium">Médio</option>
+            <option value="hard">Difícil</option>
           </select>
         </div>
       </div>

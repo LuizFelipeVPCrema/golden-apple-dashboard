@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ServerService } from '../../core/services/server.service';
 
 @Component({
   selector: 'app-server-creator',
@@ -12,21 +13,26 @@ import { Router } from '@angular/router';
 export class ServerCreatorComponent {
   server = {
     name: '',
-    port: 25565,
-    project: '',
+    port: '25565',
     gameMode: 'survival',
-    levelType: 'default'
+    levelType: 'easy'
   };
 
   gameModes = ['survival', 'creative', 'adventure', 'spectator'];
-  levelTypes = ['default', 'flat', 'largeBiomes', 'amplified', 'buffet'];
+  levelTypes = ['easy', 'medium', 'hard'];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private serverService: ServerService) {}
 
   submitServer() {
-    // Aqui futuramente será chamado o service que envia os dados para o backend
-    console.log('Servidor criado:', this.server);
-    // Redirecionar para a lista ou dashboard após criação
-    this.router.navigate(['/dashboard']);
+    this.serverService.create(this.server).subscribe({
+      next: () => {
+        console.log('Servidor criado com sucesso!');
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Erro ao criar servidor:', err);
+        alert('Falha ao criar servidor. Verifique os dados e tente novamente.');
+      }
+    });
   }
 }

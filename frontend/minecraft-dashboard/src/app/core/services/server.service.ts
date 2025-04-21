@@ -9,6 +9,13 @@ export interface ServerInfo {
     status: 'running' | 'stopped';
 }
 
+export interface ServerRequest {
+    name: string;
+    port: string;
+    gameMode: string;
+    levelType: string;
+}
+
 @Injectable({ providedIn: 'root'})
 export class ServerService {
     private readonly API = '/api/servers';
@@ -47,5 +54,9 @@ export class ServerService {
    */
   async getServerFiles(id: string): Promise<string[]> {
     return await firstValueFrom(this.http.get<string[]>(`${this.API}/${id}/files`));
+  }
+
+  create(server: ServerRequest): Observable<any> {
+    return this.http.post(this.API, server);
   }
 }
