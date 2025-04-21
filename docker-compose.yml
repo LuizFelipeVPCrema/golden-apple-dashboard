@@ -36,12 +36,13 @@ services:
   frontend:
     build:
       context: ./frontend
-      args:
-        ENV: development # "production" para alterar para modo produção
     container_name: mc-frontend
     volumes:  
       - ./frontend/minecraft-dashboard:/app
+      - /app/node_modules
     restart: always
+    environment:
+      - NODE_OPTIONS=--max_old_space_size=4096
     depends_on:
       - backend
     ports:
